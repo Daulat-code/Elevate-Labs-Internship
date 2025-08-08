@@ -16,33 +16,31 @@ public class LibraryManagementSystem {
 		LibraryServiceImp library = new LibraryServiceImp();
 		UserServiceImp user = new UserServiceImp();
 
-        library.addUser(new User(101, "Alice"));
-        library.addUser(new User(102, "Bob"));
-
         while (true) {
             System.out.println("\n---- Library Menu ----");
             System.out.println("1. Add Book");
-            System.out.println("3. Show Books");
-            System.out.println("4. Find book");
-            
-            System.out.println("6. Issue Book");
-            System.out.println("7. Return Book");
-            
-            System.out.println("\n---- User  Menu ----");
             System.out.println("2. Add user");
-            System.out.println("11. View users");
-            System.out.println("5. Find user");
-            System.out.println("8. Borrow Book");
-            System.out.println("9. Return borrowedBook");
-            System.out.println("10. Exit");
-            System.out.print("Choose: ");
+            System.out.println("3. Show Books");
+            System.out.println("4. Show users");
+            System.out.println("5. Find book");
+            System.out.println("6. Find user");
+            System.out.println("7. Issue Book");
+            System.out.println("8. Return Issued Book");
+            System.out.println("9. Borrow Book");
+            System.out.println("10. Return borrowedBook");
+            System.out.println("11. Exit");
             
-            int choice = scanner.nextInt();
+            System.out.print("\nChoose: ");
+            
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            
 
             switch (choice) {
 	            case 1:
 	            	System.out.print("Create Book ID: ");
-	            	int bookId = scanner.nextInt();
+	            	String bookId = scanner.nextLine();
 	            	System.out.print("Enter Book Name: ");
 	            	String bookName = scanner.nextLine();
 	            	System.out.print("Enter Auther Name: ");
@@ -51,68 +49,71 @@ public class LibraryManagementSystem {
 	                break;
 	            case 2:
 	            	System.out.print("Enter User ID: ");
-	            	int userId = scanner.nextInt();
+	            	int userId = Integer.parseInt(scanner.nextLine());
 	            	System.out.print("Enter User Name: ");
 	            	String userName = scanner.nextLine();
-	                library.addUser(new User(userId, userName));
+	            	user.addUser(new User(userId, userName));
 	                break;
-                case 3:
+	            case 3:
                     library.showBooks();
                     break;
-                case 11:
-                	library.viewUsers();
-                    break;
-                case 4:
-                	System.out.print("Enter Book ID: ");
-                	int bookID = scanner.nextInt();
-                    library.findBookById(bookID);
+	            case 4:
+                	user.viewUsers();
                     break;
                 case 5:
-                	System.out.print("Enter User ID: ");
-                	int userID = scanner.nextInt();
-                    library.findUserById(userID);
+                	System.out.print("Enter Book ID: ");
+                	String bookId1 = scanner.nextLine();
+                	System.out.print(library.findBookById(bookId1));
                     break;
                 case 6:
-                    System.out.print("Enter User ID: ");
-                    int userId1 = scanner.nextInt();
-                    System.out.print("Enter Book ID: ");
-                    int bookId1 = scanner.nextInt();
-                    library.issueBook(userId1, bookId1);
+                	System.out.print("Enter User ID: ");
+                	int userID = Integer.parseInt(scanner.nextLine());
+                	System.out.print(user.findUserById(userID));
                     break;
                 case 7:
                     System.out.print("Enter User ID: ");
-                    int userId2 = scanner.nextInt();
+                    int userId1 = Integer.parseInt(scanner.nextLine());
                     System.out.print("Enter Book ID: ");
-                    int bookId2 = scanner.nextInt();
-                    library.returnBook(userId2, bookId2);
+                    String bookId2 = scanner.nextLine();
+                    library.issueBook(userId1, bookId2);
                     break;
-                    
                 case 8:
+                    System.out.print("Enter User ID: ");
+                    int userId2 = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Enter Book ID: ");
+                    String bookId3 = scanner.nextLine();
+                    library.returnBook(userId2, bookId3);
+                    break;
+                case 9:
                 	System.out.print("Enter Book  ID to borrow: ");
-                    int id = scanner.nextInt();
+                    String id = scanner.nextLine();
                     System.out.print("Enter Book name: ");
                     String title = scanner.nextLine();
                     System.out.print("Enter Auther Name: ");
 	            	String autherName1 = scanner.nextLine();
                     user.borrowBook(new Book(id, title,autherName1));
                     break;
-                case 9:
+                case 10:
                     System.out.print("Enter Book  ID to borrow: ");
-                    bookId = scanner.nextInt();
+                    String bookId4 = scanner.nextLine();
                     System.out.print("Enter Book name: ");
-                    bookName = scanner.nextLine();
+                    String bookName3 = scanner.nextLine();
                     System.out.print("Enter Auther Name: ");
 	            	String autherName2 = scanner.nextLine();
-                    user.returnBook(new Book(bookId,bookName,autherName2));
-                    
+                    user.returnBook(new Book(bookId4,bookName3,autherName2));
                     break;
-                case 10:
+                case 11:
                     System.out.println("Exiting system.");
                     return;
                 default:
                     System.out.println("Invalid choice.");
             }
+            } catch (NumberFormatException ex) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
         }
+            
 
 	}
 
