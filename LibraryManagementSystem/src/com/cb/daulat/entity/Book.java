@@ -1,19 +1,19 @@
 package com.cb.daulat.entity;
 
 public class Book {
-	private int id;
+	private String id;
     private String title;
     private String author;
     private boolean isIssued;
 
-    public Book(int id, String title, String author) {
+    public Book(String id, String title, String author) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.isIssued = false;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
